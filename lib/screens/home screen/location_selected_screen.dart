@@ -25,6 +25,35 @@ class LocationSelectedScreen extends StatelessWidget {
               height: 80,
               width: MediaQuery.of(context).size.width,
               color: grey1,
+              padding: EdgeInsets.symmetric(horizontal: default_padding),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "Trip Price",
+                            style: TextStyle(
+                                fontSize: default_fontsize,
+                                color: textGrey,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          Text('\$1350.00')
+                        ],
+                      ),
+                      Container(
+                        height: 40,
+                        width: 200,
+                        color: Colors.red,
+                        child: Center(child: Text('Book Now')),
+                      )
+                    ],
+                  )
+                ],
+              ),
             )
           ],
         )),

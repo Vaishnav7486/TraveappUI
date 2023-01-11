@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui3travelapp/constants/constants.dart';
-import 'package:ui3travelapp/screens/home%20screen/homescreen.dart';
-import 'package:ui3travelapp/screens/home%20screen/location_selected_screen.dart';
-import 'package:ui3travelapp/screens/signup%20screens/signup_intro.dart';
+import 'package:ui3travelapp/screens/booking%20screens/flight_list_screen.dart';
 import 'package:flutter/services.dart';
-import 'package:overlay_group_avatar/overlay_group_avatar.dart';
+import 'package:ui3travelapp/screens/booking%20screens/seat_selection_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
           secondary: primaryLight,
         ),
       ),
-      home: LocationSelectedScreen(),
+      home: SeatSelectionScreen(),
     );
   }
 }

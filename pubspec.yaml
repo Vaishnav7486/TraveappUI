@@ -36,6 +36,7 @@ dependencies:
    # Use with the CupertinoIcons class for iOS style icons.
    cupertino_icons: ^1.0.2
    overlay_group_avatar: ^0.0.4
+   fluentui_system_icons: ^1.1.189
 
 dev_dependencies:
    flutter_test:
@@ -63,6 +64,7 @@ flutter:
    assets:
       - assets/images/
       - assets/icons/
+      - assets/icons/airlinesLogo/
    #   - images/a_dot_ham.jpeg
 
    # An image asset can refer to one or more resolution-specific "variants", see

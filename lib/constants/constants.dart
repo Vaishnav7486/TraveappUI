@@ -8,6 +8,7 @@ const Color primaryColor = Color(0xff2ABAFF);
 const Color primaryLight = Color(0xff98DEFF);
 const Color primaryULight = Color(0xffD3F1FF);
 
+const Color blueGrey = Color(0xffF1F7F9);
 const Color grey1 = Color(0xffCACACA);
 const Color grey2 = Color(0xffDCDCDC);
 const Color greyLight = Color(0xffFDFDFD);
