@@ -56,34 +56,42 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: LocationCardList()),
                 const CategoryTitle(categoryTitle: "Categories"),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(children: [
-                    IconButtonItem(
-                        iconUrl: 'assets/icons/colosseum.png',
-                        iconSubTitle: "Italy"),
-                    IconButtonItem(
-                        iconUrl: 'assets/icons/taj-mahal.png',
-                        iconSubTitle: "India"),
-                    IconButtonItem(
-                        iconUrl: 'assets/icons/great-sphinx-of-giza.png',
-                        iconSubTitle: "Egypt"),
-                    IconButtonItem(
-                        iconUrl: 'assets/icons/cathedral-of-saint-basil.png',
-                        iconSubTitle: "Russia"),
-                    IconButtonItem(
-                        iconUrl: 'assets/icons/big-ben.png',
-                        iconSubTitle: "London"),
-                    IconButtonItem(
-                        iconUrl: 'assets/icons/great-wall-of-china.png',
-                        iconSubTitle: "China")
-                  ]),
-                )
+                LocationCategoryIconCards()
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class LocationCategoryIconCards extends StatelessWidget {
+  const LocationCategoryIconCards({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(children: [
+        IconButtonItem(
+            iconUrl: 'assets/icons/colosseum.png', iconSubTitle: "Italy"),
+        IconButtonItem(
+            iconUrl: 'assets/icons/taj-mahal.png', iconSubTitle: "India"),
+        IconButtonItem(
+            iconUrl: 'assets/icons/great-sphinx-of-giza.png',
+            iconSubTitle: "Egypt"),
+        IconButtonItem(
+            iconUrl: 'assets/icons/cathedral-of-saint-basil.png',
+            iconSubTitle: "Russia"),
+        IconButtonItem(
+            iconUrl: 'assets/icons/big-ben.png', iconSubTitle: "London"),
+        IconButtonItem(
+            iconUrl: 'assets/icons/great-wall-of-china.png',
+            iconSubTitle: "China")
+      ]),
     );
   }
 }
@@ -331,14 +339,20 @@ class AppbarMainTopBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           iconButton1(
-              icondata: Icon(Icons.arrow_back_ios_new_rounded),
+              icondata: Icon(
+                Icons.menu,
+                color: grey1,
+              ),
               onIconButtonTap: () {}),
           Text(
             "travello",
             style: Theme.of(context).textTheme.headline6,
           ),
           iconButton1(
-              icondata: Icon(Icons.bookmark_add_outlined),
+              icondata: Icon(
+                Icons.bookmark_add_outlined,
+                color: grey1,
+              ),
               onIconButtonTap: () {})
         ],
       ),
@@ -550,11 +564,11 @@ class SearchBar extends StatelessWidget {
       decoration: InputDecoration(
         suffixIcon: Icon(
           Icons.mic_none_outlined,
-          color: grey1,
+          color: textGrey,
         ),
         prefixIcon: Icon(
           Icons.search,
-          color: grey1,
+          color: textGrey,
         ),
         hintText: "Search",
         hintStyle: TextStyle(color: grey1),
