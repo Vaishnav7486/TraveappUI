@@ -37,6 +37,8 @@ dependencies:
    cupertino_icons: ^1.0.2
    overlay_group_avatar: ^0.0.4
    fluentui_system_icons: ^1.1.189
+   hidable: ^1.0.3
+   expansion_tile_card: ^2.0.0
 
 dev_dependencies:
    flutter_test:
@@ -82,6 +84,13 @@ flutter:
       - family: PassionsConflict
         fonts:
            - asset: assets/fonts/PassionsConflict-Regular.ttf
+      - family: Retro
+        fonts:
+           - asset: assets/fonts/retro_computer_personal_use.ttf
+      - family: Mojang
+        fonts:
+           - asset: assets/fonts/Mojang-Regular.ttf
+           - asset: assets/fonts/Mojang-Bold.ttf
       - family: Quicksand
         fonts:
            - asset: assets/fonts/Quicksand-Regular.ttf
