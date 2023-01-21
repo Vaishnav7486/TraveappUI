@@ -9,6 +9,7 @@ import 'package:ui3travelapp/screens/booking%20screens/seat_selection_screen.dar
 import 'package:ui3travelapp/screens/booking%20screens/ticket_confirmation_splash.dart';
 import 'package:ui3travelapp/screens/booking%20screens/ticket_screen.dart';
 import 'package:ui3travelapp/screens/home%20screen/homescreen.dart';
+import 'package:ui3travelapp/screens/home%20screen/location_selected_screen.dart';
 import 'package:ui3travelapp/screens/search%20and%20notification%20screens/notification_screen.dart';
 import 'package:ui3travelapp/screens/search%20and%20notification%20screens/scarch_screen.dart';
 import 'package:ui3travelapp/screens/signup%20screens/signup_intro.dart';
@@ -41,9 +42,17 @@ class MyApp extends StatelessWidget {
           secondary: primaryLight,
         ),
       ),
-      home: SignUpIntro(),
+      home: HomeScreen(),
       routes: {
         "HomeScreen": (context) => HomeScreen(),
+        "LocationSelectedScreen": (context) => LocationSelectedScreen(),
+        "SearchFlightScreen": (context) => SearchFlightScreen(),
+        "FlightListScreen": (context) => FlightListScreen(),
+        "SeatSelectionScreen": (context) => SeatSelectionScreen(),
+        "PassengerDetailsScreen": (context) => PassengerDetailsScreen(),
+        "PaymentDetailsScreen": (context) => PaymentDetailsScreen(),
+        "TicketConfirmationSplash": (context) => TicketConfirmationSplash(),
+        "TicketScreen": (context) => TicketScreen(),
       },
     );
   }

@@ -38,7 +38,9 @@ class PaymentDetailsScreen extends StatelessWidget {
         height: 55,
         child: CustomButton1(
           buttonText: "Confirm Your Booking",
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "TicketConfirmationSplash");
+          },
         ),
       ),
     );
@@ -248,7 +250,9 @@ class PaymentDetailsTopBar extends StatelessWidget {
                 Icons.arrow_back_ios_new_rounded,
                 color: textGrey,
               ),
-              onIconButtonTap: () {}),
+              onIconButtonTap: () {
+                Navigator.pop(context);
+              }),
           TitleText(
             text: "Payment Details",
           ),

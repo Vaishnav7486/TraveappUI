@@ -9,6 +9,7 @@ class SearchFlightScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productpxd1 = ModalRoute.of(context)?.settings.arguments as Map;
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -36,11 +37,11 @@ class SearchFlightScreen extends StatelessWidget {
                 Column(
                   children: [
                     CustomTestFormField1(
-                      hintText: "New York, USA",
+                      hintText: "Enter Your Location",
                     ),
                     SizedBox(height: default_padding * 1.5),
                     CustomTestFormField1(
-                      hintText: "Denver, Colorado",
+                      hintText: productpxd1["flightRest"],
                     )
                   ],
                 ),
@@ -96,31 +97,36 @@ class SearchFlightScreen extends StatelessWidget {
           ]),
         ),
       )),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.symmetric(
-          vertical: default_padding * 2,
-          horizontal: default_padding * 2,
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed("FlightListScreen");
+        },
+        child: Container(
+          margin: EdgeInsets.symmetric(
+            vertical: default_padding * 2,
+            horizontal: default_padding * 2,
+          ),
+          width: MediaQuery.of(context).size.width,
+          height: 60,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(default_BRadius),
+          ),
+          child: Center(
+              child: Text(
+            "Search Flights",
+            style: TextStyle(
+                fontSize: default_fontsize * 1.1,
+                fontWeight: FontWeight.w600,
+                color: Colors.white),
+          )),
         ),
-        width: MediaQuery.of(context).size.width,
-        height: 60,
-        decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: BorderRadius.circular(default_BRadius),
-        ),
-        child: Center(
-            child: Text(
-          "Search Flights",
-          style: TextStyle(
-              fontSize: default_fontsize * 1.1,
-              fontWeight: FontWeight.w600,
-              color: Colors.white),
-        )),
       ),
     );
   }
 }
 
-class CustomTestFormField1 extends StatelessWidget {
+class CustomTestFormField1 extends StatefulWidget {
   const CustomTestFormField1({
     Key? key,
     required this.hintText,
@@ -129,11 +135,35 @@ class CustomTestFormField1 extends StatelessWidget {
   final String hintText;
 
   @override
+  State<CustomTestFormField1> createState() => _CustomTestFormField1State();
+}
+
+class _CustomTestFormField1State extends State<CustomTestFormField1> {
+  TextEditingController dateInput = TextEditingController();
+
+  @override
+  void initState() {
+    dateInput.text = "";
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: () async {
+        DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2101));
+        if (pickedDate != null) {
+          print(pickedDate);
+          // String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+        }
+      },
       style: TextStyle(fontSize: default_fontsize, fontWeight: FontWeight.w700),
       decoration: InputDecoration(
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(
               fontSize: default_fontsize, fontWeight: FontWeight.w700),
           contentPadding: EdgeInsets.symmetric(
@@ -172,7 +202,9 @@ class TopbarWithTitleAndBackButton extends StatelessWidget {
         children: [
           iconButton1(
               icondata: Icon(Icons.arrow_back_ios_new_rounded),
-              onIconButtonTap: () {}),
+              onIconButtonTap: () {
+                Navigator.of(context).pop();
+              }),
           Text(
             topbarTitle,
             style: TextStyle(

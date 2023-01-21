@@ -45,7 +45,10 @@ class PassengerDetailsScreen extends StatelessWidget {
           height: 55,
           margin: EdgeInsets.symmetric(vertical: default_padding),
           child: CustomButton1(
-              buttonText: "Processed Continue", onPressed: () {})),
+              buttonText: "Proceed to Continue",
+              onPressed: () {
+                Navigator.pushNamed(context, "PaymentDetailsScreen");
+              })),
     );
   }
 }
@@ -338,7 +341,9 @@ class PassengerSelectionTopBar extends StatelessWidget {
                 Icons.arrow_back_ios_new_rounded,
                 color: textGrey,
               ),
-              onIconButtonTap: () {}),
+              onIconButtonTap: () {
+                Navigator.pop(context);
+              }),
           TitleText(
             text: "Passenger Details",
           ),

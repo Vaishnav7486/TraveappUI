@@ -10,40 +10,41 @@ class SeatSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
     return Scaffold(
-      body: SingleChildScrollView(
-        controller: scrollController,
-        child: Column(
-          children: [
-            const SizedBox(height: default_padding * 4),
-            SeatSelectionTopBar(),
-            const SizedBox(height: default_padding * 2),
-            SeatTypeSelectionBar(),
-            const SizedBox(height: default_padding),
-            SeatColorInstruction(),
-            const SizedBox(height: default_padding),
-            Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  color: Colors.green,
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: List.generate(
-                        seatLetterList.length,
-                        (index) => Text(
-                              seatLetterList[index],
-                              style: TextStyle(fontWeight: FontWeight.w700),
-                            )),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            children: [
+              const SizedBox(height: default_padding),
+              SeatSelectionTopBar(),
+              const SizedBox(height: default_padding * 2),
+              SeatTypeSelectionBar(),
+              const SizedBox(height: default_padding),
+              SeatColorInstruction(),
+              const SizedBox(height: default_padding),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
                   ),
-                )
-              ],
-            ),
-            SeatSelectionPortion_icons(),
-            SizedBox(height: 20)
-          ],
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: List.generate(
+                          seatLetterList.length,
+                          (index) => Text(
+                                seatLetterList[index],
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              )),
+                    ),
+                  )
+                ],
+              ),
+              SeatSelectionPortion_icons(),
+              SizedBox(height: 20)
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
@@ -60,7 +61,11 @@ class SeatSelectionScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: default_padding),
                 child: SelectedSeatsAndTotalPrice()),
             SizedBox(height: default_padding),
-            CustomButton1(buttonText: "Proceed", onPressed: () {}),
+            CustomButton1(
+                buttonText: "Proceed",
+                onPressed: () {
+                  Navigator.pushNamed(context, "PassengerDetailsScreen");
+                }),
             SizedBox(height: default_padding),
           ],
         ),
@@ -142,7 +147,6 @@ class SeatSelectionPortion_icons extends StatelessWidget {
             children: List.generate(
                 11,
                 (index) => Container(
-                      color: Colors.red.shade100,
                       child: Padding(
                         padding: const EdgeInsets.all(9.0),
                         child: Text(
@@ -165,7 +169,7 @@ class SeatSelectionPortion_icons extends StatelessWidget {
             // Generate 100 Widgets that display their index in the List
             children: List.generate(33, (index) {
               return Container(
-                color: Colors.amber,
+                color: Colors.amber.shade100,
                 child: Icon(Icons.weekend, color: Colors.white),
               );
             }),
@@ -181,9 +185,9 @@ class SeatSelectionPortion_icons extends StatelessWidget {
             // horizontal, this would produce 2 rows.
             crossAxisCount: 3,
             // Generate 100 Widgets that display their index in the List
-            children: List.generate(26, (index) {
+            children: List.generate(33, (index) {
               return Container(
-                color: Colors.amber,
+                color: Colors.amber.shade100,
                 child: Icon(Icons.weekend, color: Colors.white),
               );
             }),
@@ -201,7 +205,7 @@ class SeatSelectionPortion_icons extends StatelessWidget {
             // Generate 100 Widgets that display their index in the List
             children: List.generate(33, (index) {
               return Container(
-                color: Colors.amber,
+                color: Colors.amber.shade100,
                 child: Icon(Icons.weekend, color: Colors.white),
               );
             }),
@@ -373,7 +377,9 @@ class SeatSelectionTopBar extends StatelessWidget {
                 Icons.arrow_back_ios_new_rounded,
                 color: textGrey,
               ),
-              onIconButtonTap: () {}),
+              onIconButtonTap: () {
+                Navigator.pop(context);
+              }),
           TitleText(
             text: "Flights List",
           ),

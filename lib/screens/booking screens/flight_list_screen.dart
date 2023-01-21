@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ui3travelapp/constants/constants.dart';
+import 'package:ui3travelapp/dymmy%20data/dymmydatas.dart';
 
 class FlightListScreen extends StatelessWidget {
   const FlightListScreen({super.key});
@@ -9,32 +10,45 @@ class FlightListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.topCenter,
-              // height: MediaQuery.of(context).size.height * 0.3,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://images.unsplash.com/photo-1568713489957-0f7ac1058b4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=894&q=80'))),
-              child: Column(
-                children: [
-                  const SizedBox(height: default_padding * 4),
-                  const FlightListTopBar(),
-                  const SizedBox(height: default_padding),
-                  const OriginAndDestinationContainer(),
-                  const SizedBox(height: default_padding * 1.5),
-                  FlightResultSort(),
-                  const SizedBox(height: default_padding),
-                ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                // height: MediaQuery.of(context).size.height * 0.3,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            'https://images.unsplash.com/photo-1568713489957-0f7ac1058b4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=894&q=80'))),
+                child: Column(
+                  children: [
+                    const SizedBox(height: default_padding),
+                    const FlightListTopBar(),
+                    const SizedBox(height: default_padding),
+                    const OriginAndDestinationContainer(),
+                    const SizedBox(height: default_padding * 1.5),
+                    FlightResultSort(),
+                    const SizedBox(height: default_padding),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: default_padding * 1.5),
-            FlightCardList()
-          ],
+              SizedBox(height: default_padding * 1.5),
+              FlightCardList(),
+              // FlightDetailCard(
+              //     OriginLoc: "somethinf",
+              //     OriginTime: 1.25,
+              //     DestinationLoc: "sample loc",
+              //     DestinationTime: 125.55,
+              //     durationHour: 4,
+              //     durationMin: 25,
+              //     flightLogoURL: "flightLogoURL",
+              //     ticketRate: 215,
+              //     ticketClass: "ticketClass"),
+              SizedBox(height: default_padding * 1.5),
+            ],
+          ),
         ),
       ),
     );
@@ -48,72 +62,27 @@ class FlightCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        FlightDetailCard(
-            OriginLoc: "New York",
-            OriginTime: "12:00",
-            DestinationLoc: "Denver",
-            DestinationTime: '16:20',
-            durationHour: 4,
-            durationMin: 20,
-            personCount: 01,
-            flightLogoURL:
-                "assets/icons/airlinesLogo/american_airlines_logo.png",
-            ticketRate: 298,
-            ticketClass: "Business Class"),
-        FlightDetailCard(
-            OriginLoc: "New York",
-            OriginTime: "12:00",
-            DestinationLoc: "Denver",
-            DestinationTime: '16:20',
-            durationHour: 4,
-            durationMin: 20,
-            personCount: 01,
-            flightLogoURL: "assets/icons/airlinesLogo/airbus_logo.png",
-            ticketRate: 298,
-            ticketClass: "Business Class"),
-        FlightDetailCard(
-            OriginLoc: "New York",
-            OriginTime: "12:00",
-            DestinationLoc: "Denver",
-            DestinationTime: '16:20',
-            durationHour: 4,
-            durationMin: 20,
-            personCount: 01,
-            flightLogoURL: "assets/icons/airlinesLogo/british_airways.png",
-            ticketRate: 298,
-            ticketClass: "Business Class"),
-        FlightDetailCard(
-            OriginLoc: "New York",
-            OriginTime: "12:00",
-            DestinationLoc: "Denver",
-            DestinationTime: '16:20',
-            durationHour: 4,
-            durationMin: 20,
-            personCount: 01,
-            flightLogoURL:
-                "assets/icons/airlinesLogo/american_airlines_logo.png",
-            ticketRate: 298,
-            ticketClass: "Business Class"),
-        FlightDetailCard(
-            OriginLoc: "New York",
-            OriginTime: "12:00",
-            DestinationLoc: "Denver",
-            DestinationTime: '16:20',
-            durationHour: 4,
-            durationMin: 20,
-            personCount: 01,
-            flightLogoURL:
-                "assets/icons/airlinesLogo/american_airlines_logo.png",
-            ticketRate: 298,
-            ticketClass: "Business Class"),
-      ],
-    );
+    return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: flightListData.length,
+        itemBuilder: (context, index) {
+          return FlightDetailCard(
+              OriginLoc: flightListData[index]["originLoc"].toString(),
+              OriginTime: flightListData[index]["originTime"],
+              DestinationLoc:
+                  flightListData[index]["destinationLoc"].toString(),
+              DestinationTime: flightListData[index]["destinationTime"],
+              durationHour: flightListData[index]["durationH"],
+              durationMin: flightListData[index]["durationM"],
+              flightLogoURL: flightListData[index]["flightLogoURL"].toString(),
+              ticketRate: flightListData[index]["ticketRate"],
+              ticketClass: flightListData[index]["ticketClass"].toString());
+        });
   }
 }
 
-class FlightDetailCard extends StatelessWidget {
+class FlightDetailCard extends StatefulWidget {
   const FlightDetailCard({
     Key? key,
     required this.OriginLoc,
@@ -122,22 +91,28 @@ class FlightDetailCard extends StatelessWidget {
     required this.DestinationTime,
     required this.durationHour,
     required this.durationMin,
-    required this.personCount,
     required this.flightLogoURL,
     required this.ticketRate,
     required this.ticketClass,
+    int personCount = 1,
   }) : super(key: key);
 
   final String OriginLoc;
-  final String OriginTime;
+  final double OriginTime;
   final String DestinationLoc;
-  final String DestinationTime;
+  final double DestinationTime;
   final int durationHour;
   final int durationMin;
-  final int personCount;
   final String flightLogoURL;
   final double ticketRate;
   final String ticketClass;
+
+  @override
+  State<FlightDetailCard> createState() => _FlightDetailCardState();
+}
+
+class _FlightDetailCardState extends State<FlightDetailCard> {
+  final personCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -145,67 +120,7 @@ class FlightDetailCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: default_padding),
       child: GestureDetector(
         onTap: (() {
-          showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(default_BRadius * 1.5),
-                topRight: Radius.circular(default_BRadius * 1.5),
-              )),
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  // height: 200,
-                  decoration: BoxDecoration(),
-                  child: Column(
-                    children: [
-                      SizedBox(height: default_padding * 3.5),
-                      Text(
-                        "How many passengers are travelling?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: default_fontsize * 1.5),
-                      ),
-                      SizedBox(
-                        height: 120,
-                        width: 120,
-                        child: Image(
-                            fit: BoxFit.contain,
-                            image: AssetImage(
-                                'assets/icons/flight_ticket_logo.png')),
-                      ),
-                      NoOfSeatsSelected(),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: default_padding,
-                            vertical: default_padding / 1.5),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                height: 80,
-                                width: 120,
-                                child: Image(
-                                    fit: BoxFit.contain,
-                                    image: AssetImage(flightLogoURL)),
-                              ),
-                              Text(
-                                '\$$ticketRate',
-                                style: TextStyle(
-                                    fontSize: default_padding * 1.8,
-                                    color: primaryColor,
-                                    fontWeight: FontWeight.w900),
-                              )
-                            ]),
-                      ),
-                      CustomButton1(
-                        buttonText: "Book Now",
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                );
-              });
+          ShowBottomSheetFunction(context);
         }),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: default_padding),
@@ -230,10 +145,12 @@ class FlightDetailCard extends StatelessWidget {
                   height: 50,
                   width: 80,
                   child: Image(
-                      fit: BoxFit.contain, image: AssetImage(flightLogoURL)),
+                      fit: BoxFit.contain,
+                      image: AssetImage(widget.flightLogoURL)),
+                  // mark2
                 ),
                 Text(
-                  '\$$ticketRate',
+                  '\$${widget.ticketRate}',
                   style: TextStyle(
                       fontSize: default_padding * 1.8,
                       color: primaryColor,
@@ -245,13 +162,15 @@ class FlightDetailCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   FlightTimeAndOrigin(
-                      OriginLoc: OriginLoc, flightTime: OriginTime),
+                      OriginLoc: widget.OriginLoc,
+                      flightTime: widget.OriginTime.toString()),
                   FlightDurationAndSeatType(
-                      durationHour: durationHour,
-                      durationMin: durationMin,
-                      ticketClass: ticketClass),
+                      durationHour: widget.durationHour,
+                      durationMin: widget.durationMin,
+                      ticketClass: widget.ticketClass),
                   FlightTimeAndDestination(
-                      flightTime: DestinationTime, OriginLoc: DestinationLoc)
+                      flightTime: widget.DestinationTime.toString(),
+                      OriginLoc: widget.DestinationLoc)
                 ],
               ),
               SizedBox(height: default_padding * 1.8),
@@ -265,7 +184,7 @@ class FlightDetailCard extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: " $personCount Person  ",
+                      text: "$personCount",
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.w600),
                     ),
@@ -295,6 +214,74 @@ class FlightDetailCard extends StatelessWidget {
       ),
     );
   }
+
+  Future<dynamic> ShowBottomSheetFunction(BuildContext context) {
+    var itsObject1 = NoOfSeatsSelected();
+
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(default_BRadius * 1.5),
+          topRight: Radius.circular(default_BRadius * 1.5),
+        )),
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            // height: 200,
+            decoration: BoxDecoration(),
+            child: Column(
+              children: [
+                SizedBox(height: default_padding * 3.5),
+                Text(
+                  "How many passengers are travelling?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: default_fontsize * 1.5),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Image(
+                      fit: BoxFit.contain,
+                      image: AssetImage('assets/icons/flight_ticket_logo.png')),
+                ),
+                NoOfSeatsSelected(),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: default_padding,
+                      vertical: default_padding / 1.5),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 80,
+                          width: 120,
+                          child: Image(
+                              fit: BoxFit.contain,
+                              image: AssetImage(widget.flightLogoURL)),
+                        ),
+                        Text(
+                          '\$${widget.ticketRate}',
+                          // mark tickcet rate
+                          style: TextStyle(
+                              fontSize: default_padding * 1.8,
+                              color: primaryColor,
+                              fontWeight: FontWeight.w900),
+                        )
+                      ]),
+                ),
+                CustomButton1(
+                  buttonText: "Book Now",
+                  onPressed: () {
+                    Navigator.pushNamed(context, "SeatSelectionScreen");
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
 }
 
 class NoOfSeatsSelected extends StatefulWidget {
@@ -308,7 +295,16 @@ class NoOfSeatsSelected extends StatefulWidget {
 
 class _NoOfSeatsSelectedState extends State<NoOfSeatsSelected> {
   var noOfSeatsSelected = 0;
+  var seatNoReturn;
   bool selected = false;
+
+  int get getSeatCount {
+    return noOfSeatsSelected;
+  }
+
+  int seatnogetterx() {
+    return seatNoReturn;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -323,8 +319,10 @@ class _NoOfSeatsSelectedState extends State<NoOfSeatsSelected> {
               onTap: () {
                 setState(() {
                   noOfSeatsSelected = index;
-                  selected = !selected;
+                  // selected = !selected;
                   print(noOfSeatsSelected + 1);
+                  seatNoReturn = noOfSeatsSelected + 1;
+                  print("$seatNoReturn  seat no return");
                 });
               },
               child: Container(
@@ -692,7 +690,9 @@ class FlightListTopBar extends StatelessWidget {
         children: [
           iconButtonWOpacity(
               icondata: Icon(Icons.arrow_back_ios_new_rounded),
-              onIconButtonTap: () {}),
+              onIconButtonTap: () {
+                Navigator.pop(context);
+              }),
           TitleText(
             text: "Flights List",
           ),

@@ -1,13 +1,11 @@
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:ui3travelapp/constants/constants.dart';
+import 'package:ui3travelapp/dymmy data/dymmydatas.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  // final productpxd1 = locationRelatedData[index];
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +50,33 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: default_fontsize * 1.5),
                 const SearchSortBar(),
                 const SizedBox(height: default_padding * 1.5),
-                const SingleChildScrollView(
+                SizedBox(
+                  height: 280,
+                  child: ListView.builder(
+                    // physics: NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    child: LocationCardList()),
+                    itemCount: locationRelatedData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          final productpxd1 = locationRelatedData[index];
+
+                          Navigator.of(context).pushNamed(
+                              "LocationSelectedScreen",
+                              arguments: productpxd1);
+                          // print(
+                            
+                          //     "PRINTING THIS ISISISIIS" + productpxd1["site"]);
+                        },
+                        child: LocationViewCard(
+                            imageURL: locationRelatedData[index]["imageURL"],
+                            title: locationRelatedData[index]["site"],
+                            location: locationRelatedData[index]
+                                ["destination"]),
+                      );
+                    },
+                  ),
+                ),
                 const CategoryTitle(categoryTitle: "Categories"),
                 LocationCategoryIconCards()
               ],
@@ -180,29 +202,33 @@ class LocationCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        LocationViewCard(
-            imageURL:
-                'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bW91bnRhaW5zfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
-            title: 'Denver Mountains',
-            location: 'Denver, Colorado'),
-        LocationViewCard(
-          imageURL:
-              'https://images.unsplash.com/photo-1443632864897-14973fa006cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fG1vdW50YWluc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60',
-          title: 'Rann of Kutch',
-          location: 'Kutch, Gujarat',
-          peoplereviewno: 8,
-        ),
-        LocationViewCardAssetImg(
-            imageURL: 'assets/images/humayunstomb.jpg',
-            title: "Humayunn's Tomb",
-            location: 'Nizamuddin, India'),
-        LocationViewCardAssetImg(
-            imageURL: 'assets/images/dallake2.jpg',
-            title: "Dal Lake",
-            location: 'Jammu and Kashmir'),
-      ],
-    );
+        // children: List.gene
+        // LocationViewCard(
+        //     imageURL:
+        //         'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bW91bnRhaW5zfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+        //     title: "Denver Mountains",
+        //     location: "Denver, Colorado"),
+        // LocationViewCard(
+        //   imageURL:
+        //       'https://images.unsplash.com/photo-1443632864897-14973fa006cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fG1vdW50YWluc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60',
+        //   title: "Rann of Kutch",
+        //   location: "Kutch, Gujarat",
+        //   peoplereviewno: 8,
+        // ),
+        // LocationViewCard(
+        //     imageURL:
+        //         'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bW91bnRhaW5zfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+        //     title: "Humayunn's Tomb",
+        //     location: "Nizamuddin, India"),
+        // LocationViewCard(
+        //   imageURL:
+        //       'https://images.unsplash.com/photo-1443632864897-14973fa006cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fG1vdW50YWluc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60',
+        //   title: "Dal Lake",
+        //   location: "Jammu and Kashmir",
+        //   peoplereviewno: 8,
+        // ),
+
+        );
   }
 }
 

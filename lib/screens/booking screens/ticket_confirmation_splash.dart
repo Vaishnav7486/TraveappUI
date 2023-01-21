@@ -1,10 +1,26 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ui3travelapp/constants/constants.dart';
 
-class TicketConfirmationSplash extends StatelessWidget {
+class TicketConfirmationSplash extends StatefulWidget {
   const TicketConfirmationSplash({super.key});
+
+  @override
+  State<TicketConfirmationSplash> createState() =>
+      _TicketConfirmationSplashState();
+}
+
+class _TicketConfirmationSplashState extends State<TicketConfirmationSplash> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(milliseconds: 1500),
+        () => Navigator.pushReplacementNamed(context, "TicketScreen"));
+  }
 
   @override
   Widget build(BuildContext context) {

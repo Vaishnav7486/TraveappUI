@@ -1,62 +1,112 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:hidable/hidable.dart';
 import 'package:ui3travelapp/constants/constants.dart';
-import 'package:ui3travelapp/screens/home%20screen/homescreen.dart';
 
 class LocationSelectedScreen extends StatelessWidget {
-  const LocationSelectedScreen({super.key});
+  LocationSelectedScreen({super.key});
+
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    final productpxd1 = ModalRoute.of(context)?.settings.arguments as Map;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+            controller: scrollController,
             child: Column(
-          children: [
-            SizedBox(height: default_padding / 1.5),
-            ImageCardL(),
-            NameLocAndRatingProductView(),
-            DetailsCommentsReviews(),
-            DetailsTextContent(),
-            Container(
-              height: 80,
-              width: MediaQuery.of(context).size.width,
-              color: grey1,
-              padding: EdgeInsets.symmetric(horizontal: default_padding),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: default_padding / 1.5),
+                ImageCardL(
+                  productpdx1: productpxd1["imageURL"],
+                  destination: productpxd1["destination"],
+                  flightRest: productpxd1["flightRest"],
+                  location: productpxd1["location"],
+                ),
+                NameLocAndRatingProductView(
+                  site: productpxd1["site"],
+                  destination: productpxd1["destination"],
+                  destinationM: productpxd1["destinationM"],
+                  noOfRating: productpxd1["noOfRating"],
+                  rating: productpxd1["rating"],
+                ),
+                DetailsCommentsReviews(),
+                DetailsTextContent(
+                  description: productpxd1["Description"],
+                ),
+              ],
+            )),
+      ),
+      bottomNavigationBar: Hidable(
+        controller: scrollController,
+        preferredWidgetSize: Size.fromHeight(90),
+        child: Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(
+            vertical: default_padding * 1.2,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: default_padding * 1.5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            "Trip Price",
-                            style: TextStyle(
-                                fontSize: default_fontsize,
-                                color: textGrey,
-                                fontWeight: FontWeight.w300),
-                          ),
-                          Text('\$1350.00')
-                        ],
+                      Text(
+                        "Trip Price",
+                        style: TextStyle(
+                            fontSize: default_fontsize / 1.2,
+                            color: textGrey,
+                            fontWeight: FontWeight.w300),
                       ),
-                      Container(
-                        height: 40,
-                        width: 200,
-                        color: Colors.red,
-                        child: Center(child: Text('Book Now')),
+                      SizedBox(height: 4),
+                      Text(
+                        "\$" + productpxd1["tripPrice"].toString(),
+                        style: TextStyle(
+                            fontSize: default_fontsize * 1.5,
+                            fontWeight: FontWeight.w800),
                       )
                     ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed("SearchFlightScreen",
+                          arguments: productpxd1);
+                    },
+                    child: Container(
+                      // margin: EdgeInsets.only(right: default_padding / 1.5),
+                      height: 50,
+                      width: 180,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: primaryULight,
+                                offset: Offset(0, 5),
+                                spreadRadius: 5,
+                                blurRadius: 5)
+                          ],
+                          color: primaryColor,
+                          borderRadius:
+                              BorderRadius.circular(default_BRadius / 2)),
+                      child: Center(
+                          child: Text(
+                        'Book Now',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: default_fontsize * 1.1),
+                      )),
+                    ),
                   )
                 ],
-              ),
-            )
-          ],
-        )),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -65,7 +115,9 @@ class LocationSelectedScreen extends StatelessWidget {
 class DetailsTextContent extends StatelessWidget {
   const DetailsTextContent({
     Key? key,
+    required this.description,
   }) : super(key: key);
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +125,7 @@ class DetailsTextContent extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: default_padding, vertical: default_padding * 1.5),
       child: Text(
-        """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.""",
+        description,
         style: TextStyle(
             fontSize: default_fontsize,
             color: textGrey,
@@ -127,7 +177,7 @@ class textbuttonwithpaddingSelected extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: default_padding / 1.8, horizontal: default_padding / 1.2),
       decoration: BoxDecoration(
-          color: grey2,
+          color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(default_BRadius / 2)),
       child: Text(
         text,
@@ -165,7 +215,18 @@ class textbuttonwithpadding extends StatelessWidget {
 class NameLocAndRatingProductView extends StatelessWidget {
   const NameLocAndRatingProductView({
     Key? key,
+    required this.site,
+    required this.destination,
+    required this.destinationM,
+    required this.rating,
+    required this.noOfRating,
   }) : super(key: key);
+
+  final String site;
+  final String destination;
+  final String destinationM;
+  final double rating;
+  final int noOfRating;
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +240,7 @@ class NameLocAndRatingProductView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Denver Mountains",
+                site,
                 style: TextStyle(
                     fontSize: default_fontsize * 1.7,
                     fontWeight: FontWeight.w600,
@@ -195,7 +256,7 @@ class NameLocAndRatingProductView extends StatelessWidget {
                   color: textRed,
                 )),
                 TextSpan(
-                    text: "Denver, Colorado",
+                    text: "$destination, $destinationM",
                     style: TextStyle(
                         color: textRed, fontSize: default_fontsize / 1.2))
               ]))
@@ -211,14 +272,14 @@ class NameLocAndRatingProductView extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '4.9/5',
+                    '$rating/5',
                     style: TextStyle(
-                        fontSize: default_fontsize * 1.2,
+                        fontSize: default_fontsize * 1.1,
                         fontWeight: FontWeight.w300,
                         color: Colors.amber.shade500),
                   ),
                   Text(
-                    "(17,500)",
+                    "($noOfRating)",
                     style: TextStyle(
                         fontSize: default_fontsize / 1.5,
                         // fontWeight: FontWeight.w600,
@@ -237,7 +298,16 @@ class NameLocAndRatingProductView extends StatelessWidget {
 class ImageCardL extends StatelessWidget {
   const ImageCardL({
     Key? key,
+    required this.productpdx1,
+    required this.location,
+    required this.flightRest,
+    required this.destination,
   }) : super(key: key);
+
+  final String productpdx1;
+  final String location;
+  final String flightRest;
+  final String destination;
 
   @override
   Widget build(BuildContext context) {
@@ -248,8 +318,7 @@ class ImageCardL extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.6,
           decoration: BoxDecoration(
             image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/Tajmahal.jpg')
+                fit: BoxFit.cover, image: NetworkImage(productpdx1)
                 //  NetworkImage(
                 //     'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bW91bnRhaW5zfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60'),
                 ),
@@ -257,7 +326,10 @@ class ImageCardL extends StatelessWidget {
           ),
           alignment: Alignment.bottomCenter,
           padding: EdgeInsets.only(bottom: default_padding),
-          child: LocationFlightDestinationcard(),
+          child: LocationFlightDestinationcard(
+              destination: destination,
+              flightRest: flightRest,
+              location: location),
         ),
         Positioned(
           top: default_padding,
@@ -265,7 +337,9 @@ class ImageCardL extends StatelessWidget {
           child: iconButtonTransparent(
             iconname: Icons.arrow_back_ios_new_rounded,
             iconcolor: Colors.white,
-            onButtonPressed: () {},
+            onButtonPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
         ),
         Positioned(
@@ -285,29 +359,38 @@ class ImageCardL extends StatelessWidget {
 class LocationFlightDestinationcard extends StatelessWidget {
   const LocationFlightDestinationcard({
     Key? key,
+    required this.location,
+    required this.flightRest,
+    required this.destination,
   }) : super(key: key);
+
+  final String location;
+  final String flightRest;
+  final String destination;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: default_padding),
-      child: Container(
-        alignment: Alignment.center,
-        height: 80,
-        decoration: BoxDecoration(
-            color: Colors.black38,
-            borderRadius: BorderRadius.circular(default_BRadius)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: default_padding,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: default_padding / 1.2),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: default_padding),
+      alignment: Alignment.center,
+      height: 80,
+      // width: 300,
+      // width: media,
+      decoration: BoxDecoration(
+          color: Colors.black38,
+          borderRadius: BorderRadius.circular(default_BRadius)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: default_padding,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(
+                    left: default_padding / 1.5, right: default_padding / 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -315,24 +398,26 @@ class LocationFlightDestinationcard extends StatelessWidget {
                       "Location",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: default_fontsize,
+                          fontSize: default_fontsize / 1.1,
                           fontWeight: FontWeight.w200),
                     ),
                     SizedBox(height: default_padding / 4),
                     Text(
-                      "New York",
+                      location,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: default_fontsize * 1.2,
+                          fontSize: default_fontsize,
                           fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
               ),
-              verticalLineSeperatorL48(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: default_padding / 1.2),
+            ),
+            verticalLineSeperatorL48(),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: default_padding / 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -340,24 +425,27 @@ class LocationFlightDestinationcard extends StatelessWidget {
                       "Flight Rest",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: default_fontsize,
+                          fontSize: default_fontsize / 1.1,
                           fontWeight: FontWeight.w200),
                     ),
                     SizedBox(height: default_padding / 4),
                     Text(
-                      "Chikago",
+                      flightRest,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: default_fontsize * 1.2,
+                          fontSize: default_fontsize,
                           fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
               ),
-              verticalLineSeperatorL48(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: default_padding / 1.2),
+            ),
+            verticalLineSeperatorL48(),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(
+                    right: default_padding / 1.5, left: default_padding / 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -365,22 +453,24 @@ class LocationFlightDestinationcard extends StatelessWidget {
                       "Destination",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: default_fontsize,
+                          fontSize: default_fontsize / 1.1,
                           fontWeight: FontWeight.w200),
                     ),
                     SizedBox(height: default_padding / 4),
                     Text(
-                      "Denver",
+                      destination,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: default_fontsize * 1.2,
+                          fontSize: default_fontsize,
                           fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
